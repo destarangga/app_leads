@@ -17,7 +17,7 @@ class LeadHistoryExport implements FromCollection, WithHeadings, WithStyles, Wit
      */
     public function collection()
     {
-        return LeadHistory::select('id', 'follow_up_via', 'status', 'follow_up_date', 'notes', 'email', 'address', 'job', 'hobby')->get(); // Ambil data yang relevan
+        return LeadHistory::select('id', 'follow_up_via', 'status', 'follow_up_date', 'next_follow_up_date', 'notes', 'email', 'address', 'job', 'hobby')->get(); // Ambil data yang relevan
     }
 
     /**
@@ -30,6 +30,7 @@ class LeadHistoryExport implements FromCollection, WithHeadings, WithStyles, Wit
             'Metode Follow-Up',
             'Status',
             'Tanggal Follow-Up',
+            'Tanggal Follow-Up Kelanjutan',
             'Keterangan',
             'Email',
             'Alamat',
@@ -44,10 +45,11 @@ class LeadHistoryExport implements FromCollection, WithHeadings, WithStyles, Wit
     public function map($leadHistory): array
     {
         return [
-            $leadHistory->id, // Metode Follow-Up
+            $leadHistory->id, // NO
             $leadHistory->follow_up_via, // Metode Follow-Up
             $leadHistory->status, // Status
             $leadHistory->follow_up_date, // Tanggal Follow-Up
+            $leadHistory->next_follow_up_date, // Tanggal Follow-Up Kelanjutan
             $leadHistory->notes, // Keterangan
             $leadHistory->email, // Email
             $leadHistory->address, // Alamat
@@ -68,7 +70,7 @@ class LeadHistoryExport implements FromCollection, WithHeadings, WithStyles, Wit
                 'alignment' => ['horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER],
                 'fill' => ['fillType' => 'solid', 'startColor' => ['rgb' => 'D3D3D3']], // Warna latar belakang abu-abu muda
             ],
-            // Gaya untuk kolom NO (A), Metode Follow-Up (B), dan seterusnya
+            // Gaya untuk kolom-kolom lainnya
             'A2:A1000' => [
                 'alignment' => ['horizontal' => 'center'],
             ],
@@ -82,7 +84,7 @@ class LeadHistoryExport implements FromCollection, WithHeadings, WithStyles, Wit
                 'alignment' => ['horizontal' => 'center'],
             ],
             'E2:E1000' => [
-                'alignment' => ['horizontal' => 'left'],
+                'alignment' => ['horizontal' => 'center'],
             ],
             'F2:F1000' => [
                 'alignment' => ['horizontal' => 'left'],

@@ -51,6 +51,7 @@
                                     <th class="min-w-150px">Alamat</th>
                                     <th class="min-w-150px">Pekerjaan Pelanggan</th>
                                     <th class="min-w-150px">Hobi</th>
+                                    <th class="min-w-150px">Tanggal Follow-Up Kelanjutan</th> <!-- Kolom baru -->
                                 </tr>
                             </thead>
                             <tbody class="text-gray-600 fw-semibold">
@@ -65,10 +66,19 @@
                                         <td>{{ $history->address }}</td>
                                         <td>{{ $history->job }}</td>
                                         <td>{{ $history->hobby }}</td>
+                                        <!-- Menampilkan Tanggal Follow-Up Kelanjutan hanya jika status Follow UP ulang -->
+                                        <td>
+                                            @if($history->status == 'Follow UP ulang')
+                                                {{ $history->next_follow_up_date ?? '-' }} <!-- Jika tanggal follow-up kelanjutan tidak ada, tampilkan '-' -->
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                        
                     </div>
 
                     @if ($user->role != 'admin')
@@ -107,6 +117,13 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                <div class="mb-4" id="next_follow_up_date_container" style="display: none;">
+                                    <label class="form-label fw-bold" for="next_follow_up_date">Tanggal Follow-Up Kelanjutan</label>
+                                    <input type="date" name="next_follow_up_date" id="next_follow_up_date" class="form-control form-control-lg @error('next_follow_up_date') is-invalid @enderror">
+                                    @error('next_follow_up_date')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>                                
 
                                 <div class="mb-4">
                                     <label class="form-label fw-bold" for="follow_up_date">Tanggal Follow-Up</label>
@@ -171,4 +188,26 @@
     <!--end::Content wrapper-->
 </div>
 <!--end:::Main-->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusSelect = document.getElementById('status');
+        const followUpContinueDateContainer = document.getElementById('next_follow_up_date_container');
+        
+        // Fungsi untuk mengecek status dan menampilkan input tanggal kelanjutan jika perlu
+        function toggleFollowUpContinueDate() {
+            if (statusSelect.value === 'Follow UP ulang') {
+                followUpContinueDateContainer.style.display = 'block';
+            } else {
+                followUpContinueDateContainer.style.display = 'none';
+            }
+        }
+
+        // Menambahkan event listener pada perubahan pilihan status
+        statusSelect.addEventListener('change', toggleFollowUpContinueDate);
+
+        // Menjalankan fungsi saat halaman pertama kali dimuat
+        toggleFollowUpContinueDate();
+    });
+</script>
+
 @endsection

@@ -87,39 +87,53 @@ class LeadController extends Controller
 
     // Fungsi untuk update status follow up lead
     public function updateFollowUp(Request $request, $id)
-    {
-        // Validasi input form follow-up
-        $request->validate([
-            'follow_up_via' => 'required|string',
-            'status' => 'required|in:Sudah di Follow UP,Belum di Follow UP,Follow UP Ulang', // Enum status follow-up
-            'follow_up_date' => 'required|date',
-            'notes' => 'nullable|string',
-            'next_follow_up_date' => 'nullable|date|after_or_equal:follow_up_date', // Validasi untuk tanggal follow-up lanjutan
-            'email' => 'nullable|email', // Validasi untuk email
-            'address' => 'nullable|string', // Validasi untuk address
-            'job' => 'nullable|string', // Validasi untuk pekerjaan pelanggan
-            'hobby' => 'nullable|string', // Validasi untuk hobby
-        ]);
+{
+    // Validasi input form follow-up
+    $request->validate([
+        'follow_up_via' => 'required|string',
+        'status' => 'required|in:Sudah di Follow UP,Belum di Follow UP,Follow UP ulang', // Enum status follow-up
+        'follow_up_date' => 'required|date',
+        'notes' => 'nullable|string',
+        'next_follow_up_date' => [
+            'nullable', 
+            'date',
+            function ($attribute, $value, $fail) use ($request) {
+                // Validasi jika statusnya adalah 'Follow UP ulang'
+                if ($request->status == 'Follow UP ulang') {
+                    if (empty($value)) {
+                        $fail('Tanggal follow-up kelanjutan harus diisi ketika status adalah Follow UP ulang.');
+                    } elseif (strtotime($value) < strtotime($request->follow_up_date)) {
+                        $fail('Tanggal follow-up kelanjutan harus setelah atau sama dengan tanggal follow-up.');
+                    }
+                }
+            },
+        ],
+        'email' => 'nullable|email', // Validasi untuk email
+        'address' => 'nullable|string', // Validasi untuk address
+        'job' => 'nullable|string', // Validasi untuk pekerjaan pelanggan
+        'hobby' => 'nullable|string', // Validasi untuk hobby
+    ]);
 
-        $lead = Lead::findOrFail($id);
+    $lead = Lead::findOrFail($id);
 
-        // Menambahkan riwayat follow-up baru
-        LeadHistory::create([
-            'lead_id' => $id,
-            'salesman_id' => auth()->id(),
-            'follow_up_via' => $request->follow_up_via,
-            'follow_up_date' => $request->follow_up_date,
-            'status' => $request->status,
-            'notes' => $request->notes,
-            'next_follow_up_date' => $request->next_follow_up_date, // Opsional untuk menentukan jadwal follow-up selanjutnya
-            'email' => $request->email, // Menyimpan email
-            'address' => $request->address, // Menyimpan address
-            'job' => $request->job, // Menyimpan pekerjaan pelanggan
-            'hobby' => $request->hobby, // Menyimpan hobby
-        ]);
+    // Menambahkan riwayat follow-up baru
+    LeadHistory::create([
+        'lead_id' => $id,
+        'salesman_id' => auth()->id(),
+        'follow_up_via' => $request->follow_up_via,
+        'follow_up_date' => $request->follow_up_date,
+        'status' => $request->status,
+        'notes' => $request->notes,
+        'next_follow_up_date' => $request->next_follow_up_date, // Opsional untuk menentukan jadwal follow-up selanjutnya
+        'email' => $request->email, // Menyimpan email
+        'address' => $request->address, // Menyimpan address
+        'job' => $request->job, // Menyimpan pekerjaan pelanggan
+        'hobby' => $request->hobby, // Menyimpan hobby
+    ]);
 
-        return redirect()->route('leads.history', $id)->with('success', 'Follow-up successfully added.');
-    }
+    return redirect()->route('leads.history', $id)->with('success', 'Follow-up berhasil ditambahkan.');
+}
+
 
 
 
