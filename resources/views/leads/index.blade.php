@@ -121,15 +121,21 @@
                                         <td>{{ $lead->origin }}</td>
                                         <td>
                                             @if ($lead->taken_by_salesman)
-                                                <span class="badge py-3 px-4 fs-7 badge-light-success">
-                                                    Diambil oleh: {{ $lead->salesman->name }}
-                                                </span>
+                                                @if ($lead->salesman) <!-- Mengecek apakah salesman ada -->
+                                                    <span class="badge py-3 px-4 fs-7 badge-light-success">
+                                                        Diambil oleh: {{ $lead->salesman->name }}
+                                                    </span>
+                                                @else
+                                                    <span class="badge py-3 px-4 fs-7 badge-light-danger">
+                                                        Salesman Dihapus
+                                                    </span>
+                                                @endif
                                             @else
                                                 <span class="badge py-3 px-4 fs-7 badge-light-warning">
                                                     Belum Diambil
                                                 </span>
                                             @endif
-                                        </td>
+                                        </td>                                        
                                         <td class="text-end">
                                             <div class="d-flex justify-content-end gap-2">
                                                 @if ($user->role != 'admin')
