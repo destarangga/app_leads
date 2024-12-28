@@ -7,6 +7,8 @@ use App\Http\Controllers\LeadController;
 use App\Exports\LeadsExport;
 use App\Exports\LeadHistoryExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\Request;
+
 
 
 
@@ -47,8 +49,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/leads/api', [LeadController::class, 'storeLeadsViaAPI'])->name('leads.api.store');
     Route::get('/leads/monitoring', [LeadController::class, 'monitoringLeads'])->name('leads.monitoring');
     Route::get('/leads/follow-up-list', [LeadController::class, 'followUpList'])->name('leads.follow-up-list');
-    Route::get('leads/export', function () {
-        return Excel::download(new LeadsExport, 'leads.xlsx');
+    Route::get('leads/export', function (Request $request) {
+        $status = $request->get('status'); // Ambil parameter status dari request
+        return Excel::download(new LeadsExport($status), 'leads.xlsx');
     })->name('leads.export');
     Route::get('/leads/{id}/export-history', function ($id) {
         return Excel::download(new LeadHistoryExport, 'riwayat_follow_up_lead.xlsx');

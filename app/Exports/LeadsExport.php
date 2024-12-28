@@ -1,7 +1,5 @@
 <?php
 
-// app/Exports/LeadsExport.php
-
 namespace App\Exports;
 
 use App\Models\Lead;
@@ -9,86 +7,93 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class LeadsExport implements FromCollection, WithHeadings, WithMapping, WithStyles, ShouldAutoSize
+class LeadsExport implements FromCollection, WithHeadings, WithMapping, WithStyles
 {
+    protected $status;
+
     /**
-     * Menentukan data yang akan diexport
+     * Constructor untuk menerima filter
      */
-    public function collection()
+    public function __construct($status = null)
     {
-        return Lead::all();
+        $this->status = $status;
     }
 
     /**
-     * Menentukan headings untuk kolom pada Excel
+     * Mengambil data dengan filter (jika ada)
+     */
+    public function collection()
+    {
+        $query = Lead::query();
+
+        // Filter data berdasarkan status
+        if ($this->status === 'taken') {
+            $query->where('taken_by_salesman', true);
+        } elseif ($this->status === 'untaken') {
+            $query->where('taken_by_salesman', false);
+        }
+
+        return $query->get();
+    }
+
+    /**
+     * Menentukan header kolom pada file Excel
      */
     public function headings(): array
     {
         return [
-            'No',
-            'Nama',
-            'No HP',
-            'Alamat',
-            'Asal Leads',
-            'Status',
-            'Salesman',
+            'Id Lead',          // Kolom No
+            'Nama',        // Kolom Nama
+            'No HP',       // Kolom No HP
+            'Alamat',      // Kolom Alamat
+            'Asal Leads',  // Kolom Asal Leads
+            'Status',      // Kolom Status
+            'Salesman',    // Kolom Salesman
         ];
     }
 
     /**
-     * Menentukan bagaimana setiap row akan dimapping
+     * Mapping data untuk setiap baris
      */
     public function map($lead): array
     {
         return [
-            $lead->id,
-            $lead->name,
-            $lead->phone,
-            $lead->address,
-            $lead->origin,
-            $lead->taken_by_salesman ? 'Diambil' : 'Belum Diambil',
-            $lead->salesman ? $lead->salesman->name : 'N/A',
+            $lead->id,                                    // No
+            $lead->name,                                  // Nama
+            $lead->phone,                                 // No HP
+            $lead->address,                               // Alamat
+            $lead->origin,                                // Asal Leads
+            $lead->taken_by_salesman ? 'Diambil' : 'Belum Diambil', // Status
+            $lead->salesman?->name ?? 'N/A',             // Salesman
         ];
     }
 
     /**
-     * Menambahkan gaya untuk header dan data
+     * Menentukan style untuk file Excel
      */
     public function styles(Worksheet $sheet)
     {
         return [
-            // Gaya untuk header
-            1    => [
+            // Header (baris 1)
+            1 => [
                 'font' => ['bold' => true],
                 'alignment' => ['horizontal' => 'center'],
-                'fill' => ['fillType' => 'solid', 'startColor' => ['rgb' => 'D3D3D3']], // Warna latar belakang header abu-abu muda
+                'fill' => [
+                    'fillType' => 'solid',
+                    'startColor' => ['rgb' => 'D3D3D3'], // Warna abu-abu muda
+                ],
             ],
-            // Gaya untuk kolom No (A), Nama (B), No HP (C), dan seterusnya
-            'A2:A1000' => [
-                'alignment' => ['horizontal' => 'center'],
-            ],
-            'B2:B1000' => [
-                'alignment' => ['horizontal' => 'left'],
-            ],
-            'C2:C1000' => [
-                'alignment' => ['horizontal' => 'left'],
-            ],
-            'D2:D1000' => [
-                'alignment' => ['horizontal' => 'left'],
-            ],
-            'E2:E1000' => [
-                'alignment' => ['horizontal' => 'left'],
-            ],
-            'F2:F1000' => [
-                'alignment' => ['horizontal' => 'center'],
-            ],
-            'G2:G1000' => [
-                'alignment' => ['horizontal' => 'left'],
-            ],
+
+            // Style untuk kolom lainnya
+            'A' => ['alignment' => ['horizontal' => 'center']],
+            'B' => ['alignment' => ['horizontal' => 'left']],
+            'C' => ['alignment' => ['horizontal' => 'left']],
+            'D' => ['alignment' => ['horizontal' => 'left']],
+            'E' => ['alignment' => ['horizontal' => 'left']],
+            'F' => ['alignment' => ['horizontal' => 'center']],
+            'G' => ['alignment' => ['horizontal' => 'left']],
         ];
     }
 }
-

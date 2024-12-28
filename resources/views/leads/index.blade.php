@@ -57,11 +57,29 @@
                             <i class="fas fa-plus-circle"></i> Buat Lead Baru
                         </a>
                         @endif
-                        <!-- Tombol untuk export ke Excel -->
-                        <a href="{{ route('leads.export') }}" class="btn btn-sm btn-success">
-                            <i class="fas fa-file-excel"></i> Export ke Excel
-                        </a>
-                    </div>                                       <!-- Filter Form -->
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-file-excel"></i> Export Leads
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('leads.export', ['status' => 'taken']) }}">
+                                        <i class="fas fa-check-circle text-success"></i> Export Taken Leads
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('leads.export', ['status' => 'untaken']) }}">
+                                        <i class="fas fa-times-circle text-warning"></i> Export Untaken Leads
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('leads.export') }}">
+                                        <i class="fas fa-list-alt text-primary"></i> Export All Leads
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>                        
+                    </div>                                       
                 </div>
 
                 <!-- Tampilkan pesan jika ada -->
