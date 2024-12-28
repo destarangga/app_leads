@@ -50,7 +50,7 @@ class LeadsExport implements FromCollection, WithHeadings, WithMapping, WithStyl
             $lead->address,
             $lead->origin,
             $lead->taken_by_salesman ? 'Diambil' : 'Belum Diambil',
-            $lead->taken_by_salesman ? $lead->salesman->name : 'N/A',
+            $lead->salesman ? $lead->salesman->name : 'N/A',
         ];
     }
 
