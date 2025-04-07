@@ -6,44 +6,6 @@
     <!--begin::Content wrapper-->
     <div class="d-flex flex-column flex-column-fluid">
         <div class="container">
-            <!--begin::Card Statistik Leads-->
-            <div class="card shadow-sm mt-5">
-                <div class="card-header border-0 pt-6">
-                    <div class="card-title">
-                        <h2>Statistik Leads</h2>
-                    </div>
-                </div>
-                <div class="card-body py-4">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card bg-light">
-                                <div class="card-body">
-                                    <h5 class="card-title">Total Leads</h5>
-                                    <p class="card-text">{{ $totalLeads }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card bg-success text-white">
-                                <div class="card-body">
-                                    <h5 class="card-title">Leads Diambil</h5>
-                                    <p class="card-text">{{ $takenLeads }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card bg-warning text-white">
-                                <div class="card-body">
-                                    <h5 class="card-title">Leads Belum Diambil</h5>
-                                    <p class="card-text">{{ $untakenLeads }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--end::Card Statistik Leads-->
-
             <!--begin::Card Daftar Leads-->
             <div class="card shadow-sm mt-5">
                 <div class="card-header border-0 pt-6">

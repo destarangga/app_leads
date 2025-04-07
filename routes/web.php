@@ -32,6 +32,8 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/data', [AuthController::class, 'index'])->name('auth.index');
+    Route::get('/add-admin', [AuthController::class, 'showAdmin'])->name('admin.page');
+    Route::post('/add-admin', [AuthController::class, 'addAdmin'])->name('admin.store');
     Route::delete('/data/{id}', [AuthController::class, 'delete'])->name('auth.delete');
     Route::get('/profile', [AuthController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [AuthController::class, 'edit'])->name('profile.edit');

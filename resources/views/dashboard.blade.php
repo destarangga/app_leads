@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body">
                     <div class="mb-5">
-                        <h2 class="fs-2x fw-bold mb-3">Selamat datang, {{ $user->name }}!</h2>
+                        <h2 class="fs-2x fw-bold    mb-3">Selamat datang, {{ $user->name }}!</h2>
                         <div class="fs-5 text-gray-700">
                             <p class="mb-2"><span class="fw-semibold text-dark">Email:</span> {{ $user->email }}</p>
                             <p class="mb-4"><span class="fw-semibold text-dark">Role:</span> {{ $user->role }}</p>
@@ -31,6 +31,62 @@
                             @endif
                         </div>
                     </div>
+                </div>
+                <div class="card shadow-sm mt-5">
+                    <div class="card-header border-0 pt-6">
+                        <div class="card-title">
+                            <h2>Statistik Leads</h2>
+                        </div>
+                    </div>
+                    <div class="card-body py-4">
+                        <div class="row g-4">
+                            <!-- Total Leads -->
+                            <div class="col-md-4">
+                                <div class="card shadow-lg border-0 bg-light">
+                                    <div class="card-body text-center">
+                                        <div class="d-flex align-items-center justify-content-center mb-3">
+                                            <i class="fas fa-chart-line text-primary" style="font-size: 2rem;"></i>
+                                        </div>
+                                        <h5 class="card-title text-primary fw-bold mb-3">Total Leads</h5>
+                                        <p class="card-text" style="font-size: 2.5rem; font-family: 'Roboto', sans-serif; font-weight: 700; color: #000;">
+                                            {{ $totalLeads }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <!-- Leads Diambil -->
+                            <div class="col-md-4">
+                                <div class="card shadow-lg border-0 bg-success text-white">
+                                    <div class="card-body text-center">
+                                        <div class="d-flex align-items-center justify-content-center mb-3">
+                                            <i class="fas fa-user-check text-white" style="font-size: 2rem;"></i>
+                                        </div>
+                                        <h5 class="card-title fw-bold mb-3">Leads Diambil</h5>
+                                        <p class="card-text" style="font-size: 2.5rem; font-family: 'Roboto', sans-serif; font-weight: 700;">
+                                            {{ $takenLeads }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <!-- Leads Belum Diambil -->
+                            <div class="col-md-4">
+                                <div class="card shadow-lg border-0 bg-warning">
+                                    <div class="card-body text-center">
+                                        <div class="d-flex align-items-center justify-content-center mb-3">
+                                            <i class="fas fa-user-clock text-dark" style="font-size: 2rem;"></i>
+                                        </div>
+                                        <h5 class="card-title fw-bold mb-3 text-dark">Leads Belum Diambil</h5>
+                                        <p class="card-text" style="font-size: 2.5rem; font-family: 'Roboto', sans-serif; font-weight: 700; color: #000;">
+                                            {{ $untakenLeads }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                
+                    
                 </div>
             </div>
             <!--end::Welcome Card-->

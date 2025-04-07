@@ -117,6 +117,11 @@
                             <button type="submit" class="btn btn-success btn-lg">
                                 <i class="bi bi-upload me-2"></i>Unggah File
                             </button>
+
+                            <!-- Tombol Kembali -->
+                            <a href="{{ route ('leads.index')}}" class="btn btn-secondary btn-lg">
+                                <i class="bi bi-arrow-left me-2"></i>Kembali
+                            </a>
                             
                         </div>
                     </form>

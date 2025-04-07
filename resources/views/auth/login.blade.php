@@ -23,6 +23,7 @@
     <script src="{{ asset('assetslog/global_assets/js/plugins/forms/styling/uniform.min.js') }}"></script>
     <script src="{{ asset('assetslog/assets/js/app.js') }}"></script>
     <script src="{{ asset('assetslog/global_assets/js/demo_pages/login.js') }}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- /theme JS files -->    
   </head>
 <body>
@@ -41,17 +42,6 @@
 					<div class="card mb-0">
                         
 						<div class="card-body">
-                            @if (session('success'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('success') }}
-                            </div>
-                            @endif
-                            <!-- Alert for error messages -->
-                            @if (session('error'))
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    {{ session('error') }}
-                                </div>
-                            @endif
 							<div class="text-center mb-3">
 								<h5 class="mb-0">Login</h5>
 								<span class="d-block text-muted">Enter your credentials below</span>
@@ -107,4 +97,37 @@
 	<!-- /page content -->
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: '{{ session('success') }}',
+        });
+    @endif
+
+    @if(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '{{ session('error') }}',
+        });
+    @endif
+
+    @if ($errors->any())
+        let errorList = '';
+        @foreach ($errors->all() as $error)
+            errorList += '{{ $error }}\n';
+        @endforeach
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Login Gagal!',
+            text: errorList,
+        });
+    @endif
+</script>
+
 </html>

@@ -35,6 +35,31 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:8|confirmed',
+                'role' => 'required|string|in:salesman,admin',
+            ]);
+
+            User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password']),
+                'role' => $validated['role'],
+            ]);
+
+            return redirect()->route('login')->with('success', 'Registration successful, please login.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat registrasi: ' . $e->getMessage())->withInput();
+        }
+    }
+
+    public function addAdmin(Request $request)
+    {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -49,7 +74,14 @@ class AuthController extends Controller
             'role' => $request->role, 
         ]);
 
-        return redirect()->route('login')->with('success', 'Registration successful, please login.');
+        return redirect()->route('auth.index')->with('success', 'Add Admin successful');
+    }
+
+    public function showAdmin()
+    {
+        $user = Auth::user(); 
+
+        return view('auth.add_admin', compact('user'));
     }
 
     public function login(Request $request)

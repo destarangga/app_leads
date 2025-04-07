@@ -11,30 +11,26 @@ use Maatwebsite\Excel\Facades\Excel;
 class LeadController extends Controller
 {
    // Menampilkan daftar leads dengan filter
-    public function index(Request $request)
-    {
-        $status = $request->get('status'); // Mendapatkan parameter status dari request
-
-        // Query untuk menghitung jumlah total leads, leads yang diambil, dan leads yang belum diambil
-        $totalLeads = Lead::count();
-        $takenLeads = Lead::where('taken_by_salesman', true)->count();
-        $untakenLeads = Lead::where('taken_by_salesman', false)->count();                                           
-        // Membuat query untuk mengambil semua leads
-        $leads = Lead::query();
-
-        // Menambahkan filter jika status dipilih
-        if ($status == 'taken') {
-            $leads = $leads->where('taken_by_salesman', true);
-        } elseif ($status == 'untaken') {
-            $leads = $leads->where('taken_by_salesman', false);
-        }
-
-        // Mendapatkan data leads setelah filter diterapkan
-        $leads = $leads->get();
-
-        $user = auth()->user(); // Mendapatkan data user yang sedang login
-        return view('leads.index', compact('leads', 'user', 'status', 'totalLeads', 'takenLeads', 'untakenLeads')); // Mengirim data leads, user, dan status ke Blade
-    }
+   public function index(Request $request)
+   {
+       $status = $request->get('status'); 
+    
+       $leads = Lead::query();
+   
+       // Menambahkan filter jika status dipilih
+       if ($status == 'taken') {
+           $leads = $leads->where('taken_by_salesman', true)->orderBy('id', 'desc');
+       } elseif ($status == 'untaken') {
+           $leads = $leads->where('taken_by_salesman', false)->orderBy('id', 'asc');
+       }
+   
+       // Mendapatkan data leads setelah filter diterapkan
+       $leads = $leads->get();
+   
+       $user = auth()->user(); // Mendapatkan data user yang sedang login
+       return view('leads.index', compact('leads', 'user', 'status')); // Mengirim data leads, user, dan status ke Blade
+   }
+   
 
 
     // Menampilkan form untuk menambahkan lead
@@ -164,6 +160,9 @@ class LeadController extends Controller
         $file = $request->file('file');
         $leads = Excel::toArray([], $file)[0];
 
+        // Menghapus header (baris pertama)
+        unset($leads[0]);
+
         foreach ($leads as $row) {
             Lead::create([
                 'name' => $row[0],
@@ -173,8 +172,9 @@ class LeadController extends Controller
             ]);
         }
 
-        return response()->json(['message' => 'Leads uploaded successfully.']);
+        return redirect()->route('leads.index')->with('success', 'Lead successfully created.');
     }
+
 
     // Fungsi untuk menambahkan lead via API
     public function storeLeadsViaAPI(Request $request)
