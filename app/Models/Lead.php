@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Lead extends Model
 {
-    use HasFactory, SoftDeletes; // Menambahkan soft deletes
+    use HasFactory, SoftDeletes; 
 
     protected $fillable = [
         'name',
         'phone',
         'origin',
         'address',
-        'taken_by_salesman', // Status apakah lead sudah diambil atau belum
-        'salesman_id', // ID salesman yang mengambil lead
+        'taken_by_salesman', 
+        'salesman_id',
     ];
 
     /**
@@ -24,7 +24,7 @@ class Lead extends Model
      */
     public function salesman()
     {
-        return $this->belongsTo(User::class, 'salesman_id'); // Relasi dengan model User
+        return $this->belongsTo(User::class, 'salesman_id'); 
     }
 
     /**
@@ -32,7 +32,7 @@ class Lead extends Model
      */
     public function histories()
     {
-        return $this->hasMany(LeadHistory::class); // Relasi dengan LeadHistory
+        return $this->hasMany(LeadHistory::class); 
     }
 
     /**

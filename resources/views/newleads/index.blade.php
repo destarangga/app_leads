@@ -17,46 +17,16 @@
                         <div class="card p-4 mb-4">
                             <h5>Selection Criteria</h5>
                             <div class="row">
-                                <!-- Tipe Dropdown -->
+                                <!-- Nomor Dropdown -->
                                 <div class="col-md-2">
-                                    <select name="tipe" class="form-control">
-                                        <option value="">Tipe</option>
-                                        @foreach($tipi as $tipe)
-                                            <option value="{{ $tipe }}" {{ request('tipe') == $tipe ? 'selected' : '' }}>{{ $tipe }}</option>
+                                    <select name="nomor" class="form-control">
+                                        <option value="">Nomor</option>
+                                        @foreach($nomors as $nomor)
+                                            <option value="{{ $nomor }}" {{ request('nomor') == $nomor ? 'selected' : '' }}>{{ $nomor }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-
-                                <!-- Warna Dropdown -->
-                                <div class="col-md-2">
-                                    <select name="warna" class="form-control">
-                                        <option value="">Warna</option>
-                                        @foreach($warna as $color)
-                                            <option value="{{ $color }}" {{ request('warna') == $color ? 'selected' : '' }}>{{ $color }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <!-- Nama Dropdown -->
-                                <div class="col-md-2">
-                                    <select name="nama" class="form-control">
-                                        <option value="">Nama</option>
-                                        @foreach($names as $name)
-                                            <option value="{{ $name }}" {{ request('nama') == $name ? 'selected' : '' }}>{{ $name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <!-- No HP Dropdown -->
-                                <div class="col-md-2">
-                                    <select name="nohp" class="form-control">
-                                        <option value="">No HP</option>
-                                        @foreach($phoneNumbers as $phone)
-                                            <option value="{{ $phone }}" {{ request('nohp') == $phone ? 'selected' : '' }}>{{ $phone }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
+                        
                                 <!-- Tanggal Dropdown -->
                                 <div class="col-md-2">
                                     <select name="tanggal" class="form-control">
@@ -66,8 +36,122 @@
                                         @endforeach
                                     </select>
                                 </div>
+                        
+                                <!-- Nama Dropdown -->
+                                <div class="col-md-2">
+                                    <select name="nama" class="form-control">
+                                        <option value="">Nama</option>
+                                        @foreach($names as $name)
+                                            <option value="{{ $name }}" {{ request('nama') == $name ? 'selected' : '' }}>{{ $name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                        
+                                <!-- No HP Dropdown -->
+                                <div class="col-md-2">
+                                    <select name="nohp" class="form-control">
+                                        <option value="">No HP</option>
+                                        @foreach($phoneNumbers as $phone)
+                                            <option value="{{ $phone }}" {{ request('nohp') == $phone ? 'selected' : '' }}>{{ $phone }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                        
+                                <!-- Alamat Dropdown -->
+                                <div class="col-md-2">
+                                    <select name="alamat" class="form-control">
+                                        <option value="">Alamat</option>
+                                        @foreach($alamats as $address)
+                                            <option value="{{ $address }}" {{ request('alamat') == $address ? 'selected' : '' }}>{{ $address }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
+                            
+                            <div class="row">
+                                <!-- Kelurahan Dropdown -->
+                                <div class="col-md-2 mt-4 mb-4">
+                                    <select name="kelurahan" class="form-control">
+                                        <option value="">Kelurahan</option>
+                                        @foreach($kelurahans as $kelurahan)
+                                            <option value="{{ $kelurahan }}" {{ request('kelurahan') == $kelurahan ? 'selected' : '' }}>{{ $kelurahan }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                        
+                                <!-- Kecamatan Dropdown -->
+                                <div class="col-md-2 mt-4 mb-4">
+                                    <select name="kecamatan" class="form-control">
+                                        <option value="">Kecamatan</option>
+                                        @foreach($kecamatans as $kecamatan)
+                                            <option value="{{ $kecamatan }}" {{ request('kecamatan') == $kecamatan ? 'selected' : '' }}>{{ $kecamatan }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                        
+                                <!-- Kota Dropdown -->
+                                <div class="col-md-2 mt-4 mb-4">
+                                    <select name="kota" class="form-control">
+                                        <option value="">Kota</option>
+                                        @foreach($kotas as $kota)
+                                            <option value="{{ $kota }}" {{ request('kota') == $kota ? 'selected' : '' }}>{{ $kota }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                        
+                                <!-- Tipe Dropdown -->
+                                <div class="col-md-2 mt-4 mb-4">
+                                    <select name="tipe" class="form-control">
+                                        <option value="">Tipe</option>
+                                        @foreach($tipi as $tipe)
+                                            <option value="{{ $tipe }}" {{ request('tipe') == $tipe ? 'selected' : '' }}>{{ $tipe }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                        
+                                <!-- Warna Dropdown -->
+                                <div class="col-md-2 mt-4 mb-4">
+                                    <select name="warna" class="form-control">
+                                        <option value="">Warna</option>
+                                        @foreach($warna as $color)
+                                            <option value="{{ $color }}" {{ request('warna') == $color ? 'selected' : '' }}>{{ $color }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <!-- Hargajual Dropdown -->
+                                <div class="col-md-2">
+                                    <select name="hargajual" class="form-control">
+                                        <option value="">Harga Jual</option>
+                                        @foreach($hargajuals as $harga)
+                                            <option value="{{ $harga }}" {{ request('hargajual') == $harga ? 'selected' : '' }}>{{ $harga }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                        
+                                <!-- Discount Dropdown -->
+                                <div class="col-md-2">
+                                    <select name="discount" class="form-control">
+                                        <option value="">Discount</option>
+                                        @foreach($discounts as $disc)
+                                            <option value="{{ $disc }}" {{ request('discount') == $disc ? 'selected' : '' }}>{{ $disc }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                        
+                                <!-- Status Dropdown -->
+                                <div class="col-md-2">
+                                    <select name="status" class="form-control">
+                                        <option value="">Status</option>
+                                        @foreach($statuses as $status)
+                                            <option value="{{ $status }}" {{ request('status') == $status ? 'selected' : '' }}>{{ $status }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>                        
 
                         <!-- Template Save -->
                         <div class="d-flex gap-3 mb-3">
@@ -76,19 +160,18 @@
                         </div>
 
                         <!-- Field Data Selection -->
-                        <div class="card p-4 mb-4">
+                        <div class="card p-4 mb-4 mt-4">
                             <h5>Field Data</h5>
                             <div class="row">
-                                @foreach(['tipe', 'warna', 'nama', 'nohp', 'tanggal'] as $field)
+                                @foreach(['nomor', 'tipe', 'warna', 'nama', 'nohp', 'alamat', 'kelurahan', 'kecamatan', 'kota', 'tanggal', 'hargajual', 'discount', 'status'] as $field)
                                     <div class="col-md-2 form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" name="fields[]" value="{{ $field }}"
-                                            {{ in_array($field, request()->get('fields', ['tipe','nama','nohp','tanggal'])) ? 'checked' : '' }}>
-                                        <label class="form-check-label text-capitalize">{{ $field }}</label>
+                                        <input class="form-check-input mt-2 mb-2" type="checkbox" name="fields[]" value="{{ $field }}"
+                                            {{ in_array($field, request()->get('fields', [])) ? 'checked' : '' }}>
+                                        <label class="form-check-label text-capitalize mt-2 mb-2">{{ $field }}</label>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
-
                         <!-- Template Save -->
                         <div class="d-flex gap-3">
                             <button type="submit" name="save_template" value="1" class="btn btn-dark">Simpan Template</button>

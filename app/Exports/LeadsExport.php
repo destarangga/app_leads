@@ -28,7 +28,6 @@ class LeadsExport implements FromCollection, WithHeadings, WithMapping, WithStyl
     {
         $query = Lead::query();
 
-        // Filter data berdasarkan status
         if ($this->status === 'taken') {
             $query->where('taken_by_salesman', true);
         } elseif ($this->status === 'untaken') {
@@ -44,13 +43,13 @@ class LeadsExport implements FromCollection, WithHeadings, WithMapping, WithStyl
     public function headings(): array
     {
         return [
-            'Id Lead',          // Kolom No
-            'Nama',        // Kolom Nama
-            'No HP',       // Kolom No HP
-            'Alamat',      // Kolom Alamat
-            'Asal Leads',  // Kolom Asal Leads
-            'Status',      // Kolom Status
-            'Salesman',    // Kolom Salesman
+            'Id Lead',          
+            'Nama',        
+            'No HP',     
+            'Alamat',      
+            'Asal Leads',  
+            'Status',      
+            'Salesman',    
         ];
     }
 
@@ -60,13 +59,13 @@ class LeadsExport implements FromCollection, WithHeadings, WithMapping, WithStyl
     public function map($lead): array
     {
         return [
-            $lead->id,                                    // No
-            $lead->name,                                  // Nama
-            $lead->phone,                                 // No HP
-            $lead->address,                               // Alamat
-            $lead->origin,                                // Asal Leads
-            $lead->taken_by_salesman ? 'Diambil' : 'Belum Diambil', // Status
-            $lead->salesman?->name ?? 'N/A',             // Salesman
+            $lead->id,                                    
+            $lead->name,                                  
+            $lead->phone,                                 
+            $lead->address,                               
+            $lead->origin,                               
+            $lead->taken_by_salesman ? 'Diambil' : 'Belum Diambil',
+            $lead->salesman?->name ?? 'N/A',             
         ];
     }
 
@@ -76,17 +75,15 @@ class LeadsExport implements FromCollection, WithHeadings, WithMapping, WithStyl
     public function styles(Worksheet $sheet)
     {
         return [
-            // Header (baris 1)
             1 => [
                 'font' => ['bold' => true],
                 'alignment' => ['horizontal' => 'center'],
                 'fill' => [
                     'fillType' => 'solid',
-                    'startColor' => ['rgb' => 'D3D3D3'], // Warna abu-abu muda
+                    'startColor' => ['rgb' => 'D3D3D3'], 
                 ],
             ],
 
-            // Style untuk kolom lainnya
             'A' => ['alignment' => ['horizontal' => 'center']],
             'B' => ['alignment' => ['horizontal' => 'left']],
             'C' => ['alignment' => ['horizontal' => 'left']],

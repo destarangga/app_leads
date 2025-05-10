@@ -45,16 +45,16 @@ class LeadHistoryExport implements FromCollection, WithHeadings, WithStyles, Wit
     public function map($leadHistory): array
     {
         return [
-            $leadHistory->id, // NO
-            $leadHistory->follow_up_via, // Metode Follow-Up
-            $leadHistory->status, // Status
-            $leadHistory->follow_up_date, // Tanggal Follow-Up
-            $leadHistory->next_follow_up_date, // Tanggal Follow-Up Kelanjutan
-            $leadHistory->notes, // Keterangan
-            $leadHistory->email, // Email
-            $leadHistory->address, // Alamat
-            $leadHistory->job, // Pekerjaan Pelanggan
-            $leadHistory->hobby, // Hobi
+            $leadHistory->id, 
+            $leadHistory->follow_up_via,
+            $leadHistory->status,
+            $leadHistory->follow_up_date, 
+            $leadHistory->next_follow_up_date, 
+            $leadHistory->notes, 
+            $leadHistory->email,
+            $leadHistory->address, 
+            $leadHistory->job, 
+            $leadHistory->hobby, 
         ];
     }
 

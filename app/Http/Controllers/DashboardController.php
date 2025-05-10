@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Menu;
-use App\Models\Lead;
+use App\Models\NewLead;
 
 use Illuminate\Http\Request;
 
@@ -12,11 +12,9 @@ class DashboardController extends Controller
     {
         $user = auth()->user(); 
 
-        $totalLeads = Lead::count();
-        $takenLeads = Lead::where('taken_by_salesman', true)->count();
-        $untakenLeads = Lead::where('taken_by_salesman', false)->count();
+        $totalLeads = NewLead::count();
 
-        return view('dashboard', compact('user', 'totalLeads', 'takenLeads', 'untakenLeads'));
+        return view('dashboard', compact('user', 'totalLeads'));
     }
 
 }

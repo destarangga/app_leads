@@ -20,12 +20,12 @@
 
                             @if ($user->role === 'admin')
                                 <p class="mb-4">Anda memiliki akses penuh sebagai administrator sistem.</p>
-                                <a href="{{ route('leads.index') }}" class="btn btn-primary btn-lg">
+                                <a href="{{ route('leads.show') }}" class="btn btn-primary btn-lg">
                                     <i class="fas fa-database me-2"></i>Kelola Data
                                 </a>
                             @else
                                 <p class="mb-4">Selamat datang di panel Salesman kami.</p>
-                                <a href="{{ route('leads.index') }}" class="btn btn-secondary btn-lg">
+                                <a href="{{ route('leads.show') }}" class="btn btn-secondary btn-lg">
                                     <i class="fas fa-eye me-2"></i>Lihat Data
                                 </a>
                             @endif
@@ -47,7 +47,7 @@
                                         <div class="d-flex align-items-center justify-content-center mb-3">
                                             <i class="fas fa-chart-line text-primary" style="font-size: 2rem;"></i>
                                         </div>
-                                        <h5 class="card-title text-primary fw-bold mb-3">Total Leads</h5>
+                                        <h5 class="card-title text-primary fw-bold mb-3">Total New Leads</h5>
                                         <p class="card-text" style="font-size: 2.5rem; font-family: 'Roboto', sans-serif; font-weight: 700; color: #000;">
                                             {{ $totalLeads }}
                                         </p>
@@ -56,34 +56,7 @@
                             </div>
                     
                             <!-- Leads Diambil -->
-                            <div class="col-md-4">
-                                <div class="card shadow-lg border-0 bg-success text-white">
-                                    <div class="card-body text-center">
-                                        <div class="d-flex align-items-center justify-content-center mb-3">
-                                            <i class="fas fa-user-check text-white" style="font-size: 2rem;"></i>
-                                        </div>
-                                        <h5 class="card-title fw-bold mb-3">Leads Diambil</h5>
-                                        <p class="card-text" style="font-size: 2.5rem; font-family: 'Roboto', sans-serif; font-weight: 700;">
-                                            {{ $takenLeads }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                    
-                            <!-- Leads Belum Diambil -->
-                            <div class="col-md-4">
-                                <div class="card shadow-lg border-0 bg-warning">
-                                    <div class="card-body text-center">
-                                        <div class="d-flex align-items-center justify-content-center mb-3">
-                                            <i class="fas fa-user-clock text-dark" style="font-size: 2rem;"></i>
-                                        </div>
-                                        <h5 class="card-title fw-bold mb-3 text-dark">Leads Belum Diambil</h5>
-                                        <p class="card-text" style="font-size: 2.5rem; font-family: 'Roboto', sans-serif; font-weight: 700; color: #000;">
-                                            {{ $untakenLeads }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>                
                     
