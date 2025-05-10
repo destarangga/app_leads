@@ -71,8 +71,8 @@
                                                         <!--end::Avatar-->
                                                         <!--begin::Username-->
                                                         <div class="d-flex flex-column">
-                                                            <div class="fw-bold d-flex align-items-center fs-5">{{ $user->name }}</div>
-                                                            <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">{{ $user->email }}</a>
+                                                            <div class="fw-bold d-flex align-items-center fs-5">{{ Auth::user()->name }}</div>
+                                                            <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">{{ Auth::user()->email }}</a>
                                                         </div>
                                                         <!--end::Username-->
                                                     </div>
@@ -170,6 +170,68 @@
                                             <!--end:Menu link-->
                                         </div>
                                         <!--end:Menu item-->
+                                        <div class="menu-item pt-5">
+                                            <!--begin:Menu content-->
+                                            <div class="menu-content">
+                                                <span class="menu-heading fw-bold text-uppercase fs-7">New Leads</span>
+                                            </div>
+                                            <!--end:Menu content-->
+                                        </div>
+                                        <!--end:Menu item-->  
+                                        <!--begin:Menu item-->
+                                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                            <!--begin:Menu link-->
+                                            <span class="menu-link">
+                                                <span class="menu-icon">
+                                                    <span class="svg-icon svg-icon-2">
+                                                        <!--begin::Lead Generation Icon-->
+                                                        <svg width="24" height="24" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M32 2C15.432 2 2 15.432 2 32s13.432 30 30 30 30-13.432 30-30S48.568 2 32 2zm0 58C17.664 60 6 48.336 6 34S17.664 8 32 8s26 11.664 26 26-11.664 26-26 26z" fill="currentColor"/>
+                                                            <path d="M32 16c-8.837 0-16 7.163-16 16h4c0-6.627 5.373-12 12-12s12 5.373 12 12h4c0-8.837-7.163-16-16-16z" fill="currentColor"/>
+                                                            <path d="M32 24c-4.418 0-8 3.582-8 8h4c0-2.209 1.791-4 4-4s4 1.791 4 4h4c0-4.418-3.582-8-8-8z" fill="currentColor"/>
+                                                        </svg>
+                                                        <!--end::Lead Generation Icon-->
+                                                    </span>
+                                                </span>
+                                                
+                                                
+                                                <span class="menu-title">New Lead</span>
+                                                <span class="menu-arrow"></span>
+                                            </span>
+                                            <!--end:Menu link-->
+                                            <!--begin:Menu sub-->
+                                            <div class="menu-sub menu-sub-accordion">
+                                                <!--begin:Menu item-->
+                                                <div class="menu-item">
+                                                    <!--begin:Menu link-->
+                                                    <a class="menu-link" href="{{ route('leads.show') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">New Data Leads</span>
+                                                    </a>
+                                                    <!--end:Menu link-->
+                                                </div>
+                                                <!--end:Menu item-->
+                                            </div>
+                                            <!--end:Menu sub-->
+                                            <!--begin:Menu sub-->
+                                            <div class="menu-sub menu-sub-accordion">
+                                                <!--begin:Menu item-->
+                                                <div class="menu-item">
+                                                    <!--begin:Menu link-->
+                                                    <a class="menu-link" href="{{ route('leads.import.form') }}">
+                                                        <span class="menu-bullet">
+                                                            <span class="bullet bullet-dot"></span>
+                                                        </span>
+                                                        <span class="menu-title">Import Data Leads</span>
+                                                    </a>
+                                                    <!--end:Menu link-->
+                                                </div>
+                                                <!--end:Menu item-->
+                                            </div>
+                                            <!--end:Menu sub-->
+                                        </div>
                                         <div class="menu-item pt-5">
                                             <!--begin:Menu content-->
                                             <div class="menu-content">
